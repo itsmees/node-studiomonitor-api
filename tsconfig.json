@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "watch": true,
+        "lib": [
+            "ES2020",
+            "DOM"
+        ],
+        "sourceMap": true,
+        "noImplicitUseStrict": true,
+        "outDir": ""
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}
