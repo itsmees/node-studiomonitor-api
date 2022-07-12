@@ -39,6 +39,9 @@ Create a new instance of the StudioMonitor API
 ### StudioMonitor.getSources() -> Promise<string[  ]>
 Get a list of all available NDI sources.
 
+### StudioMonitor.getCurrentSource() -> Promise<void>
+get the current NDI source.
+
 ### StudioMonitor.setSource( [ sourceName ] ) -> Promise<void>
 Set the current NDI source.
 |Argument|Type|Description
