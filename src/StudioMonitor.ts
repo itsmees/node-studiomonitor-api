@@ -17,23 +17,18 @@ export class StudioMonitor {
 		this.getConfigData().then((config: Config) => {
 			this.config = config;
 
-			this.getSourcesData()
-				.then((sources: Sources) => {
-					this.sources = sources;
-
-					ready();
-				})
-				.catch(console.log);
+			this.updateSourcesData().then(ready).catch(console.log);
 		});
 	}
 
-	private getSourcesData() {
+	updateSourcesData(): Promise<void> {
 		var _this = this;
 		return new Promise(function(resolve, reject) {
 			axios
 				.get(`http://${_this.ip}:${_this.port}${_this.version}/sources`)
 				.then((response) => {
-					resolve(response.data);
+					_this.sources = response.data;
+					resolve();
 				})
 				.catch(reject);
 		});
@@ -54,35 +49,50 @@ export class StudioMonitor {
 	getSources(sourceType: string = 'ndi_sources'): Promise<string[]> {
 		var _this = this;
 		return new Promise((resolve, reject) => {
-			if (sourceType != undefined)
-				if (_this.sources[sourceType] != undefined) resolve(_this.sources[sourceType]);
-				else reject(new Error('Source type does not exist'));
-			else return _this.sources;
+			this.updateSourcesData()
+				.then(() => {
+					if (sourceType != undefined)
+						if (_this.sources[sourceType] != undefined) resolve(_this.sources[sourceType]);
+						else reject(new Error('Source type does not exist'));
+					else return _this.sources;
+				})
+				.catch(() => {
+					reject(new Error('Unable to update sources'));
+				});
 		});
 	}
 
 	setSource(sourceName): Promise<void> {
 		var _this = this;
 		return new Promise((resolve, reject) => {
-			var setConfig = {
-				version: 1
-			};
-			var sourceType = 'NDI_source';
-			setConfig[sourceType] = sourceName;
-			_this.config[sourceType] = sourceName;
+			this.updateSourcesData()
+				.then(() => {
+					var setConfig = {
+						version: 1
+					};
+					var sourceType = 'NDI_source';
+					setConfig[sourceType] = sourceName;
+					_this.config[sourceType] = sourceName;
 
-			if (sourceName === 'None') {
-				setConfig[sourceType] = '';
-				_this.config[sourceType] = 'None';
-			}
+					if (sourceName === 'None') {
+						setConfig[sourceType] = '';
+						_this.config[sourceType] = 'None';
+					}
 
-			axios
-				.post(`http://${_this.ip}:${_this.port}${_this.version}/configuration`, JSON.stringify(setConfig))
-				.then((response) => {
-					resolve();
+					axios
+						.post(
+							`http://${_this.ip}:${_this.port}${_this.version}/configuration`,
+							JSON.stringify(setConfig)
+						)
+						.then((response) => {
+							resolve();
+						})
+						.catch((error) => {
+							reject(new Error(`Unable to reach StudioMonitor at ${_this.ip}:${_this.port}`));
+						});
 				})
-				.catch((error) => {
-					reject(new Error(`Unable to reach StudioMonitor at ${_this.ip}:${_this.port}`));
+				.catch(() => {
+					reject(new Error('Unable to update sources'));
 				});
 		});
 	}
