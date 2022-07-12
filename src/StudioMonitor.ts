@@ -8,17 +8,21 @@ export class StudioMonitor {
 	private sources: Sources;
 	private config: Config;
 
-	constructor(ipAddress: string, port: number = 81, ready: () => void) {
+	constructor(ipAddress: string, port: number = 81, ready: (err?: Error) => void) {
 		this.version = '/v1';
 
 		this.ip = ipAddress;
 		this.port = port;
 
-		this.getConfigData().then((config: Config) => {
-			this.config = config;
+		this.getConfigData()
+			.then((config: Config) => {
+				this.config = config;
 
-			this.updateSourcesData().then(ready).catch(console.log);
-		});
+				this.updateSourcesData()
+					.then(() => ready())
+					.catch((error) => ready(new Error('Unable to find StudioMonitor at ${this.ip}:${this.port}')));
+			})
+			.catch((error) => ready(new Error('Unable to find StudioMonitor at ${this.ip}:${this.port}')));
 	}
 
 	updateSourcesData(): Promise<void> {

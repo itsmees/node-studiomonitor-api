@@ -1,5 +1,5 @@
 # StudioMonitor-API
-This is simple API you can use to control a NDI Tools Studio Monitor. Studio Monitor is a free multi NDI Player that's includes in [NDI Tools](https://ndi.tv/tools/).
+This is simple API you can use to control a NDI Tools Studio Monitor. Studio Monitor is a free multi NDI Player that's includes in [ NDI Tools ](https://ndi.tv/tools/).
 
 ## Usage
 1. Install the package using `npm install studiomonitor-api`
@@ -19,7 +19,7 @@ function ready() {
 			console.log('Sources:', sources);
 
 			if (sources.length > 0) {
-				monitor.setSource(sources[i]).then(() => console.log('Set source')).catch(console.error);
+				monitor.setSource(sources[ i ]).then(() => console.log('Set source')).catch(console.error);
 			}
 		})
 		.catch(console.error);
@@ -28,31 +28,31 @@ function ready() {
 ````
 
 ## Documentation
-### new StudioMonitor( [ipAddress] , [port] , [readyCallback] ) 
+### new StudioMonitor( [ ipAddress ] , [ port ] , [ readyCallback(err?:Error) ] ) 
 Create a new instance of the StudioMonitor API
 |Argument|Type|Description
 |-|-|-|
 |ipAddress|String|The IP address of the StudioMonitor|
 |port|Number|The port of the StudioMonitor.|
-|readyCallback|Function|Function that will be called when the API is ready.|
+|readyCallback|Function|Function that will be called when the API is ready. When something is wrong the first argument of the callback will contain an error.|
 
-### StudioMonitor.getSources() -> Promise<string[]>
+### StudioMonitor.getSources() -> Promise<string[  ]>
 Get a list of all available NDI sources.
 
-### StudioMonitor.setSource( [sourceName] ) -> Promise<void>
+### StudioMonitor.setSource( [ sourceName ] ) -> Promise<void>
 Set the current NDI source.
 |Argument|Type|Description
 |-|-|-|
 |sourceName|String|The name of the NDI Source|
 
-### StudioMonitor.setRecording( [state] ) -> Promise<void>
+### StudioMonitor.setRecording( [ state ] ) -> Promise<void>
 Set the recording state of the StudioMonitor.
 |Argument|Type|Description
 |-|-|-|
 |state|Boolean|Start/stop recording |
 
 
-### StudioMonitor.isRecording( [state] ) -> Promise<boolean>
+### StudioMonitor.isRecording( [ state ] ) -> Promise<boolean>
 Get the recording state of the StudioMonitor.
 
 
