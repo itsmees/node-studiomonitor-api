@@ -76,9 +76,7 @@ export class StudioMonitor {
 
 		axios
 			.post(`http://${this.ip}:${this.port}${this.version}/configuration`, JSON.stringify(setConfig))
-			.then((response) => {
-				console.log(response.data);
-			});
+			.then((response) => {});
 	}
 }
 

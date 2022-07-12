@@ -38,3 +38,8 @@ Set the current NDI source.
 |Argument|Description
 |-|-|
 |sourceName|The name of the NDI Source|
+
+
+## Todo
+* Add missing functions
+* Add promisses to functions
