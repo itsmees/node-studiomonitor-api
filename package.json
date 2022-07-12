@@ -1,17 +1,18 @@
 {
 	"name": "studiomonitor-api",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A simple API that allows you to control the NDI Tools Studio Monitor",
 	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "",
+	"scripts": {},
+	"author": "Mees van der Wijk",
 	"license": "ISC",
 	"dependencies": {
 		"axios": "^0.27.2"
 	},
 	"devDependencies": {
 		"@types/node": "^18.0.3"
+	},
+	"repository": {
+		"url": "https://github.com/itsmees/node-studiomonitor-api.git"
 	}
 }

@@ -30,12 +30,8 @@ Create a new instance of the StudioMonitor API
 |port|The port of the StudioMonitor.|
 |readyCallback|Function that will be called when the API is ready.|
 
-<br>
-
 ### StudioMonitor.getSources() -> string[]
 Get a list of all available NDI sourxces.
-
-<br>
 
 ### StudioMonitor.setSource([sourceName])
 Set the current NDI source.
