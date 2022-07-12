@@ -1,11 +1,16 @@
-const { StudioMonitor } = require('.');
+const { StudioMonitor } = require('./index');
 
 var monitor = new StudioMonitor('127.0.0.1', 81, ready);
 
 function ready() {
-	var sources = monitor.getSources();
+	monitor
+		.getSources()
+		.then((sources) => {
+			console.log('Sources:', sources);
 
-	console.log('Sources:', sources);
-
-	if (sources.length > 0) monitor.setSource(sources[i]);
+			if (sources.length > 0) {
+				monitor.setSource(sources[0]).then(() => console.log('Set source')).catch(console.error);
+			}
+		})
+		.catch(console.error);
 }

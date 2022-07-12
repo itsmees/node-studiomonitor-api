@@ -7,39 +7,54 @@ This is simple API you can use to control a NDI Tools Studio Monitor. Studio Mon
 3. Create a new instance of the StudioMonitor API with `var monitor = new StudioMonitor("127.0.0.1", 81)`
 
 ## Example
-````
-const { StudioMonitor } = require("studiomonitor-api");
+````javascript
+const { StudioMonitor } = require('studiomonitor-api');
 
-var monitor = new StudioMonitor("127.0.0.1", 81, ready)
+var monitor = new StudioMonitor('127.0.0.1', 81, ready);
 
-function ready(){
-    var sources = monitor.getSources();
+function ready() {
+	monitor
+		.getSources()
+		.then((sources) => {
+			console.log('Sources:', sources);
 
-    console.log("Sources:", sources)
-
-    if (sources.length > 0) monitor.setSource(sources[i])
+			if (sources.length > 0) {
+				monitor.setSource(sources[i]).then(() => console.log('Set source')).catch(console.error);
+			}
+		})
+		.catch(console.error);
 }
+
 ````
 
 ## Documentation
 ### new StudioMonitor( [ipAddress] , [port] , [readyCallback] ) 
 Create a new instance of the StudioMonitor API
-|Argument|Description
-|-|-|
-|ipAddress|The IP address of the StudioMonitor|
-|port|The port of the StudioMonitor.|
-|readyCallback|Function that will be called when the API is ready.|
+|Argument|Type|Description
+|-|-|-|
+|ipAddress|String|The IP address of the StudioMonitor|
+|port|Number|The port of the StudioMonitor.|
+|readyCallback|Function|Function that will be called when the API is ready.|
 
-### StudioMonitor.getSources() -> string[]
-Get a list of all available NDI sourxces.
+### StudioMonitor.getSources() -> Promise<string[]>
+Get a list of all available NDI sources.
 
-### StudioMonitor.setSource([sourceName])
+### StudioMonitor.setSource( [sourceName] ) -> Promise<void>
 Set the current NDI source.
-|Argument|Description
-|-|-|
-|sourceName|The name of the NDI Source|
+|Argument|Type|Description
+|-|-|-|
+|sourceName|String|The name of the NDI Source|
+
+### StudioMonitor.setRecording( [state] ) -> Promise<void>
+Set the recording state of the StudioMonitor.
+|Argument|Type|Description
+|-|-|-|
+|state|Boolean|Start/stop recording |
+
+
+### StudioMonitor.isRecording( [state] ) -> Promise<boolean>
+Get the recording state of the StudioMonitor.
 
 
 ## Todo
-* Add missing functions
-* Add promisses to functions
+* Add more missing functions

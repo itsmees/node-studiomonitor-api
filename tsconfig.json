@@ -7,7 +7,7 @@
         ],
         "sourceMap": true,
         "noImplicitUseStrict": true,
-        "outDir": ""
+        "outDir": "lib"
     },
     "include": [
         "src/**/*.ts"
