@@ -1,6 +1,6 @@
 const { StudioMonitor } = require('./index');
 
-var monitor = new StudioMonitor('127.0.0.1', 81, ready);
+monitor = new StudioMonitor('127.0.0.1', 81, ready);
 
 function ready() {
 	monitor
@@ -14,3 +14,5 @@ function ready() {
 		})
 		.catch(console.error);
 }
+
+setInterval(() => {}, 1000);

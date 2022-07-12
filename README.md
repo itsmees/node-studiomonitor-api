@@ -51,10 +51,17 @@ Set the recording state of the StudioMonitor.
 |-|-|-|
 |state|Boolean|Start/stop recording |
 
-
 ### StudioMonitor.isRecording( [ state ] ) -> Promise<boolean>
 Get the recording state of the StudioMonitor.
 
+### StudioMonitor.setLowBandwidth( [ state ] ) -> Promise<void>
+Set the low bandwidth state of the StudioMonitor.
+|Argument|Type|Description
+|-|-|-|
+|state|Boolean|Start/stop low latency |
+
+### StudioMonitor.isLowBandwidth( [ state ] ) -> Promise<boolean>
+Get the low bandwidth state of the StudioMonitor.
 
 ## Todo
 * Add more missing functions

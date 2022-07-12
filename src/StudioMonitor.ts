@@ -50,6 +50,18 @@ export class StudioMonitor {
 		});
 	}
 
+	private setConfigData() {
+		var _this = this;
+		return new Promise(function(resolve, reject) {
+			axios
+				.post(`http://${_this.ip}:${_this.port}${_this.version}/configuration`, JSON.stringify(_this.config))
+				.then((response) => {
+					resolve(response.data);
+				})
+				.catch(reject);
+		});
+	}
+
 	getSources(sourceType: string = 'ndi_sources'): Promise<string[]> {
 		var _this = this;
 		return new Promise((resolve, reject) => {
@@ -133,6 +145,40 @@ export class StudioMonitor {
 				});
 		});
 	}
+
+	setLowLatency(state: boolean): Promise<void> {
+		return new Promise((resolve, reject) => {
+			if (this.config != undefined && this.config.decorations != undefined) {
+				this.config.decorations.lowest_latency = state;
+				this.setConfigData().then(resolve).catch(reject);
+			} else reject(new Error('Unable to set low latency state of StudioMonitor'));
+		});
+	}
+
+	isLowLatency(): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			if (this.config != undefined && this.config.decorations != undefined)
+				resolve(this.config.decorations.lowest_latency);
+			else reject(new Error('Unable to get low latency state of StudioMonitor'));
+		});
+	}
+
+	setLowBandwidth(state: boolean): Promise<void> {
+		return new Promise((resolve, reject) => {
+			if (this.config != undefined && this.config.decorations != undefined) {
+				this.config.decorations.low_bandwidth = state;
+				this.setConfigData().then(resolve).catch(reject);
+			} else reject(new Error('Unable to set low bandwidth state of StudioMonitor'));
+		});
+	}
+
+	isLowBandwidth(): Promise<boolean> {
+		return new Promise((resolve, reject) => {
+			if (this.config != undefined && this.config.decorations != undefined)
+				resolve(this.config.decorations.low_bandwidth);
+			else reject(new Error('Unable to get low bandwidth state of StudioMonitor'));
+		});
+	}
 }
 
 type MainData = {
@@ -151,7 +197,22 @@ type Sources = {
 
 type Config = {
 	audio_output: string;
-	decorations: { [key: string]: boolean };
+	decorations: {
+		audio_gain: number;
+		best_fit: boolean;
+		center_cross: boolean;
+		checkerboard: boolean;
+		do_not_hide_controls: boolean;
+		enable_ndi_output: boolean;
+		flip_horizontal: boolean;
+		flip_vertical: boolean;
+		hide_ptz_controls: boolean;
+		hw_accel: boolean;
+		low_bandwidth: boolean;
+		lowest_latency: boolean;
+		menu_posn_x: number;
+		menu_posn_y: number;
+	};
 	NDI_overlay: string;
 	NDI_source: string;
 	PTZ_controller: string;
