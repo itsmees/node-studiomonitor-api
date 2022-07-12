@@ -1,6 +1,6 @@
 {
 	"name": "studiomonitor-api",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"description": "A simple API that allows you to control the NDI Tools Studio Monitor",
 	"main": "index.js",
 	"scripts": {},
