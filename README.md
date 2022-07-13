@@ -15,11 +15,11 @@ var monitor = new StudioMonitor('127.0.0.1', 81, ready);
 function ready() {
 	monitor
 		.getSources()
-		.then((sources) => {
+		.then((sources) = > {
 			console.log('Sources:', sources);
 
-			if (sources.length > 0) {
-				monitor.setSource(sources[ i ]).then(() => console.log('Set source')).catch(console.error);
+			if (sources.length  > 0) {
+				monitor.setSource(sources[ i ]).then(() = > console.log('Set source')).catch(console.error);
 			}
 		})
 		.catch(console.error);
@@ -36,34 +36,34 @@ Create a new instance of the StudioMonitor API
 |port|Number|The port of the StudioMonitor.|
 |readyCallback|Function|Function that will be called when the API is ready. When something is wrong the first argument of the callback will contain an error.|
 
-### StudioMonitor.getSources() -> Promise<string[  ]>
+### StudioMonitor.getSources() -> Promise< string[  ] >
 Get a list of all available NDI sources.
 
-### StudioMonitor.getCurrentSource() -> Promise<void>
+### StudioMonitor.getCurrentSource() -> Promise< void >
 get the current NDI source.
 
-### StudioMonitor.setSource( [ sourceName ] ) -> Promise<void>
+### StudioMonitor.setSource( [ sourceName ] ) -> Promise< void >
 Set the current NDI source.
 |Argument|Type|Description
 |-|-|-|
 |sourceName|String|The name of the NDI Source|
 
-### StudioMonitor.setRecording( [ state ] ) -> Promise<void>
+### StudioMonitor.setRecording( [ state ] ) -> Promise< void >
 Set the recording state of the StudioMonitor.
 |Argument|Type|Description
 |-|-|-|
 |state|Boolean|Start/stop recording |
 
-### StudioMonitor.isRecording( [ state ] ) -> Promise<boolean>
+### StudioMonitor.isRecording( [ state ] ) -> Promise< boolean >
 Get the recording state of the StudioMonitor.
 
-### StudioMonitor.setLowBandwidth( [ state ] ) -> Promise<void>
+### StudioMonitor.setLowBandwidth( [ state ] ) -> Promise< void >
 Set the low bandwidth state of the StudioMonitor.
 |Argument|Type|Description
 |-|-|-|
 |state|Boolean|Start/stop low latency |
 
-### StudioMonitor.isLowBandwidth( [ state ] ) -> Promise<boolean>
+### StudioMonitor.isLowBandwidth( [ state ] ) -> Promise< boolean >
 Get the low bandwidth state of the StudioMonitor.
 
 ## Todo
