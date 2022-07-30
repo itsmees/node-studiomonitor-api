@@ -18,9 +18,17 @@ export class StudioMonitor {
 			.then(() => {
 				this.updateSourcesData()
 					.then(() => ready())
-					.catch((error) => ready(new Error('Unable to find StudioMonitor at ${this.ip}:${this.port}')));
+					.catch((error) =>
+						ready(
+							new Error(
+								`Unable to find StudioMonitor at ${this.ip}:${this.port}. Error: ${error.message}`
+							)
+						)
+					);
 			})
-			.catch((error) => ready(new Error('Unable to find StudioMonitor at ${this.ip}:${this.port}')));
+			.catch((error) =>
+				ready(new Error(`Unable to find StudioMonitor at ${this.ip}:${this.port}. Error: ${error.message}`))
+			);
 	}
 
 	updateSourcesData(): Promise<void> {
